@@ -11,7 +11,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentData, setCurrentData] = useState<MockData[]>([]);
 
-  console.log("현재데이터갯수", currentData, page);
   const { ref, isRefVisible } = useObserver();
 
   const getData = useCallback(async () => {
