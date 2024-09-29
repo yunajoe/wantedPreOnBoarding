@@ -18,3 +18,16 @@ export const getMockData = (pageNum: number): Promise<ApiResponse> => {
     });
   });
 };
+
+export const calculatePrice = (arr: string[]) => {
+  return arr.reduce((acc, ele) => {
+    const targetPrice = MOCK_DATA.find((item) => item.productId === ele)?.price;
+    if (targetPrice) {
+      acc += targetPrice;
+    } else {
+      acc += 0;
+    }
+
+    return acc;
+  }, 0);
+};
