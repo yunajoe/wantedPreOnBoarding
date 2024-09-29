@@ -12,7 +12,7 @@ function Card({
   price,
   productId,
   productName,
-  currentViewDataIdArr,
+
   setCurrentViewDataIdArr,
 }: CardProps) {
   const [isView, setIsView] = useState(false);

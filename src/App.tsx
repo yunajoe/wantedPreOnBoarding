@@ -3,6 +3,7 @@ import "./App.css";
 import Card from "./components/Card";
 import LoadingSpinner from "./components/LoadingSpinner";
 import useObserver from "./hooks/useObserver";
+import useThrottle from "./hooks/useThrottle";
 import { MockData } from "./types/data";
 import { calculatePrice, getMockData } from "./utils/api";
 
@@ -13,9 +14,11 @@ function App() {
   const [currentViewDataIdArr, setCurrentViewDataIdArr] = useState<string[]>(
     []
   );
+
   const [totalSum, setTotalSum] = useState(0);
 
   const { ref, isRefVisible } = useObserver();
+  const throttleFunc = useThrottle();
 
   const getData = useCallback(async () => {
     const result = await getMockData(page);
@@ -23,7 +26,7 @@ function App() {
   }, [page]);
 
   const callData = async () => {
-    // setIsLoading(true);
+    setIsLoading(true);
     const result = await getData();
     const { datas, isEnd } = result;
     if (isEnd) {
@@ -48,6 +51,7 @@ function App() {
   useEffect(() => {
     try {
       callData();
+      // throttleFunc(callData(), 5000);
     } catch (error) {
       throw error;
     } finally {
